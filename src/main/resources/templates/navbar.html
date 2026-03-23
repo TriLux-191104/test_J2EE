@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <style th:fragment="vercel-css">
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { background-color: #000 !important; color: #ededed !important; font-family: 'Montserrat', sans-serif !important; }
+        .bg-vercel-nav { background-color: #000; border-bottom: 1px solid #333; }
+        .card-vercel { background-color: #0a0a0a; border: 1px solid #333; transition: border 0.2s ease; }
+        .card-vercel:hover { border-color: #888; }
+        .btn-vercel-primary { background-color: #fff; color: #000; border: none; font-weight: 600; border-radius: 6px; }
+        .btn-vercel-primary:hover { background-color: #ccc; color: #000; }
+        .btn-vercel-outline { background-color: transparent; color: #fff; border: 1px solid #333; font-weight: 600; border-radius: 6px; }
+        .btn-vercel-outline:hover { background-color: #fff; color: #000; }
+        .form-control-vercel { background-color: #111; border: 1px solid #333; color: #fff; border-radius: 6px; }
+        .form-control-vercel:focus { background-color: #111; color: #fff; border-color: #888; box-shadow: none; }
+        .table-vercel { color: #ededed; border-color: #333; }
+        .table-vercel th { background-color: #111; color: #fff; border-bottom: 1px solid #333; }
+        .table-vercel td { background-color: #0a0a0a; }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-vercel-nav py-3 mb-4" th:fragment="navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-white fs-4" href="/home">
+            <svg viewBox="0 0 76 65" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 24px; margin-right: 8px;"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="#ffffff"/></svg>
+            CourseApp
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <form class="d-flex mx-auto w-100 my-2 my-lg-0" style="max-width: 400px;" action="/home" method="get">
+                <input class="form-control form-control-vercel me-2" type="search" name="keyword" placeholder="Tìm tên học phần..." th:value="${keyword}">
+                <button class="btn btn-vercel-outline px-4" type="submit">Tìm</button>
+            </form>
+
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
+                    <a class="nav-link text-white fw-medium" href="/my-courses">Học phần của tôi</a>
+                </li>
+                <li class="nav-item mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-white fw-medium" href="/admin/courses">Quản lý Học phần</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="btn btn-vercel-primary px-4 ms-lg-3" href="/login">Đăng nhập</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="d-inline m-0">
+                        <button type="submit" class="btn btn-vercel-outline px-4 ms-lg-3">Đăng xuất</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
